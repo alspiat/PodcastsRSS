@@ -10,7 +10,7 @@
 #import "DetailsViewController.h"
 #import "ItemsViewController.h"
 
-static const CGFloat primaryColumnWidthFactor = 0.4;
+//static const CGFloat primaryColumnWidthFactor = 0.35;
 
 @interface AppDelegate ()
 
@@ -31,9 +31,13 @@ static const CGFloat primaryColumnWidthFactor = 0.4;
     splitViewController.view.backgroundColor = UIColor.whiteColor;
     splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
-    CGFloat width = UIScreen.mainScreen.bounds.size.width > UIScreen.mainScreen.bounds.size.height ? UIScreen.mainScreen.bounds.size.width : UIScreen.mainScreen.bounds.size.height;
-    splitViewController.minimumPrimaryColumnWidth = width * primaryColumnWidthFactor;
-    splitViewController.maximumPrimaryColumnWidth = width * primaryColumnWidthFactor;
+    // --- Костыль BEGIN ---
+    
+//    CGFloat width = UIScreen.mainScreen.bounds.size.width > UIScreen.mainScreen.bounds.size.height ? UIScreen.mainScreen.bounds.size.width : UIScreen.mainScreen.bounds.size.height;
+//    splitViewController.minimumPrimaryColumnWidth = width * primaryColumnWidthFactor;
+//    splitViewController.maximumPrimaryColumnWidth = width * primaryColumnWidthFactor;
+    
+    // --- Костыль END ---
     
     self.window.rootViewController = splitViewController;
     
