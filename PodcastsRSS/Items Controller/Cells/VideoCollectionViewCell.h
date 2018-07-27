@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemCollectionViewCellProtocol.h"
+#import "ItemCollectionViewCell.h"
 
 extern NSString * const videoItemCellIdentifier;
 
-@class Item;
-
-@interface VideoCollectionViewCell : UICollectionViewCell <ItemCollectionViewCellProtocol>
+@interface VideoCollectionViewCell : ItemCollectionViewCell
 
 @end

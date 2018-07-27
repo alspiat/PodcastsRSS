@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemCollectionViewCellProtocol.h"
+#import "ItemCollectionViewCell.h"
 
 extern NSString * const audioItemCellIdentifier;
 
-@class Item;
-
-@interface AudioCollectionViewCell : UICollectionViewCell <ItemCollectionViewCellProtocol>
+@interface AudioCollectionViewCell : ItemCollectionViewCell
 
 @end

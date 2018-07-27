@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemCollectionViewCellProtocol.h"
+#import "ItemCollectionViewCell.h"
 
 extern NSString * const firstItemCellIdentifier;
 
-@class Item;
-
-@interface FirstCollectionViewCell : UICollectionViewCell <ItemCollectionViewCellProtocol>
+@interface FirstCollectionViewCell : ItemCollectionViewCell
 
 @end

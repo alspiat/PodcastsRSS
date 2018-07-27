@@ -78,7 +78,7 @@ static NSString * const mediaURLField = @"url";
             item.pubDate = date;
             item.imageContent = [[Content alloc] initWithWebLink: itemDict[imageField][imageURLField]];
             item.mediaContent = [[Content alloc] initWithWebLink: itemDict[mediaField][mediaURLField]];
-            item.type = type;
+            item.sourceType = type;
             
             [items addObject:item];
         }

@@ -8,69 +8,20 @@
 
 #import "FirstCollectionViewCell.h"
 #import "Item.h"
+#import "DataManager.h"
 
 NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
 
-@interface FirstCollectionViewCell()
-
-@property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *authorLabel;
-
-@end
-
 @implementation FirstCollectionViewCell
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self setupSubviews];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setupSubviews];
-    }
-    return self;
-}
-
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video"]];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _imageView.contentMode = UIViewContentModeScaleToFill;
-    }
-    return _imageView;
-}
-
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _titleLabel.font = [UIFont systemFontOfSize:18.0 weight:UIFontWeightBold];
-        _titleLabel.textColor = UIColor.whiteColor;
-        _titleLabel.numberOfLines = 2;
-    }
-    return _titleLabel;
-}
-
-- (UILabel *)authorLabel {
-    if (!_authorLabel) {
-        _authorLabel = [[UILabel alloc] init];
-        _authorLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _authorLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightLight];
-        _authorLabel.textColor = UIColor.whiteColor;
-    }
-    return _authorLabel;
-}
-
 - (void)setupSubviews {
+    self.imageView.image = [UIImage imageNamed:@"video"];
+    self.authorLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightLight];
+    self.authorLabel.textColor = UIColor.whiteColor;
+    self.titleLabel.font = [UIFont systemFontOfSize:18.0 weight:UIFontWeightBold];
+    self.titleLabel.textColor = UIColor.whiteColor;
+    self.titleLabel.numberOfLines = 2;
+    
     self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     
     [self addSubview:self.imageView];
@@ -92,9 +43,17 @@ NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
                                               ]];
 }
 
+- (void)prepareForReuse {
+    self.imageView.image = [UIImage imageNamed:@"video"];
+}
+
 - (void)configureWithItem:(Item *)item {
     self.titleLabel.text = item.title;
     self.authorLabel.text = item.author;
+    
+    [DataManager getItemImage:item completionHandler:^(UIImage *image) {
+        self.imageView.image = image;
+    }];
 }
 
 @end

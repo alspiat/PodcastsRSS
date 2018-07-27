@@ -58,7 +58,7 @@ static NSString * const dashSymbol = @"-";
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
-    NSLog(@"END DOCUMENT");
+    
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {

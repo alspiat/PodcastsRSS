@@ -11,9 +11,16 @@
 #import "VideoCollectionViewCell.h"
 #import "AudioCollectionViewCell.h"
 #import "FirstCollectionViewCell.h"
+#import "ItemCollectionViewCell.h"
 #import "Item.h"
+#import "DetailsViewController.h"
+#import "ControllersManager.h"
 
 @implementation ItemsViewController (CollectionView)
+
+- (void)viewWillLayoutSubviews {
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
 
 // MARK: - CollectionView dataSource methods
 
@@ -22,14 +29,19 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell<ItemCollectionViewCellProtocol> *cell = nil;
+    ItemCollectionViewCell *cell = nil;
     
     if (indexPath.row == 0) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:firstItemCellIdentifier forIndexPath:indexPath];
-    } else if (self.itemsDatasource[indexPath.row].type == ItemTypeTedtalks) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:videoItemCellIdentifier forIndexPath:indexPath];
     } else {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:audioItemCellIdentifier forIndexPath:indexPath];
+        switch (self.itemsDatasource[indexPath.row].sourceType) {
+            case ItemTypeTedtalks:
+                cell = [collectionView dequeueReusableCellWithReuseIdentifier:videoItemCellIdentifier forIndexPath:indexPath];
+                break;
+            case ItemTypeSimplecast:
+                cell = [collectionView dequeueReusableCellWithReuseIdentifier:audioItemCellIdentifier forIndexPath:indexPath];
+                break;
+        }
     }
     
     [cell configureWithItem:self.itemsDatasource[indexPath.row]];
@@ -39,7 +51,7 @@
 // MARK: - CollectionView delegate methods
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [ControllersManager.sharedManager showDetailsViewControllerWithItem:self.itemsDatasource[indexPath.row]];
 }
 
 // MARK: - CollectionView flowLayout delegate methods

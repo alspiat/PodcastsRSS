@@ -7,12 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "DetailsViewController.h"
-#import "ItemsViewController.h"
+#import "ControllersManager.h"
 
 //static const CGFloat primaryColumnWidthFactor = 0.35;
 
-@interface AppDelegate ()
+@interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end
 
@@ -22,24 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     _window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    
-    ItemsViewController *itemsVC = [[ItemsViewController alloc] init];
-    DetailsViewController *detailsVC = [[DetailsViewController alloc] init];
-    
-    UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
-    splitViewController.viewControllers = [NSArray arrayWithObjects:itemsVC, detailsVC, nil];
-    splitViewController.view.backgroundColor = UIColor.whiteColor;
-    splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    
-    // --- Костыль BEGIN ---
-    
-//    CGFloat width = UIScreen.mainScreen.bounds.size.width > UIScreen.mainScreen.bounds.size.height ? UIScreen.mainScreen.bounds.size.width : UIScreen.mainScreen.bounds.size.height;
-//    splitViewController.minimumPrimaryColumnWidth = width * primaryColumnWidthFactor;
-//    splitViewController.maximumPrimaryColumnWidth = width * primaryColumnWidthFactor;
-    
-    // --- Костыль END ---
-    
-    self.window.rootViewController = splitViewController;
+    self.window.rootViewController = ControllersManager.sharedManager.splitViewController;
     
     [self.window makeKeyAndVisible];
     

@@ -8,10 +8,12 @@
 
 #import "DetailsViewController.h"
 #import "ContentView.h"
+#import "Item.h"
 
 @interface DetailsViewController ()
 
 @property (strong, nonatomic) UIScrollView *scrollView;
+
 
 @end
 
@@ -30,17 +32,31 @@
                                               [self.scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
                                               [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]]];
     
+    // Do any additional setup after loading the view.
+}
+
+- (void)setupViews {
+    _scrollView = [[UIScrollView alloc] init];
+    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.scrollView.backgroundColor = UIColor.greenColor;
+    
+    [self.view addSubview:self.scrollView];
+    [NSLayoutConstraint activateConstraints:@[[self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+                                              [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+                                              [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+                                              [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]]];
+    
     ContentView *contentView = [[ContentView alloc] init];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-//    imageView.image = [UIImage imageNamed:@"vidos"];
-//    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-//
-//    UILabel *detailsLabel = [[UILabel alloc] init];
-//    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-//    detailsLabel.text = @"Details details details details details details details details details details details details details details details details details details details details";
-//    detailsLabel.numberOfLines = 0;
-//    [detailsLabel sizeToFit];
+    //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    //    imageView.image = [UIImage imageNamed:@"vidos"];
+    //    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    //
+    //    UILabel *detailsLabel = [[UILabel alloc] init];
+    //    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    //    detailsLabel.text = @"Details details details details details details details details details details details details details details details details details details details details";
+    //    detailsLabel.numberOfLines = 0;
+    //    [detailsLabel sizeToFit];
     
     UILabel *durationLabel = [[UILabel alloc] init];
     durationLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -52,7 +68,7 @@
     
     UILabel *detailsLabel = [[UILabel alloc] init];
     detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    detailsLabel.text = @"Title Title Title Title Title Title Title Title Title Title Title Title Title e Title Title Title Title Title Title Title e Title Title Title Title Title Title Title e Title Title Title Title Title Title Title ";
+    detailsLabel.text = self.detailItem.title;
     detailsLabel.numberOfLines = 0;
     [detailsLabel sizeToFit];
     
@@ -80,13 +96,31 @@
     
     [contentView setupSubviews];
     self.view.backgroundColor = UIColor.redColor;
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setDetailItem:(Item *)detailItem {
+    _detailItem = detailItem;
+    
+    UILabel *detailsLabel = [[UILabel alloc] init];
+    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    detailsLabel.text = self.detailItem.title;
+    detailsLabel.numberOfLines = 0;
+    [detailsLabel sizeToFit];
+    
+    [self.scrollView addSubview:detailsLabel];
+    
+    [NSLayoutConstraint activateConstraints:@[
+                                              [detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:10],
+                                              [detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-10],
+                                              [detailsLabel.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor constant:20]
+                                              ]];
+    
+    //[self setupViews];
 }
 
 /*

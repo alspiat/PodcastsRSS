@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Item;
+
 @interface DetailsViewController : UIViewController
+
+@property (strong, nonatomic) Item *detailItem;
 
 @end

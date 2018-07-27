@@ -60,18 +60,13 @@
     [itemService fetchTedtalksItemsWithCompletionHandler:^(NSArray<Item *> *items) {
         [self.itemsDatasource addObjectsFromArray:items];
         [self.collectionView reloadData];
-        NSLog(@"Ted");
     }];
     
     [itemService fetchSimplecastItemsWithCompletionHandler:^(NSArray<Item *> *items) {
         [self.itemsDatasource addObjectsFromArray:items];
         [self.collectionView reloadData];
-        NSLog(@"Simplecast");
     }];
-}
 
-- (void)viewWillLayoutSubviews {
-    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)didReceiveMemoryWarning {
