@@ -9,11 +9,14 @@
 #import "DetailsViewController.h"
 #import "ContentView.h"
 #import "Item.h"
+#import "DataManager.h"
+#import "DateFormatter.h"
 
 @interface DetailsViewController ()
 
 @property (strong, nonatomic) UIScrollView *scrollView;
-
+@property (strong, nonatomic) UILabel *detailsLabel;
+@property (strong, nonatomic) ContentView *contentView;
 
 @end
 
@@ -24,78 +27,39 @@
     
     _scrollView = [[UIScrollView alloc] init];
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.backgroundColor = UIColor.greenColor;
-    
+    self.scrollView.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:self.scrollView];
-    [NSLayoutConstraint activateConstraints:@[[self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-                                              [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-                                              [self.scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-                                              [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]]];
     
-    // Do any additional setup after loading the view.
-}
-
-- (void)setupViews {
-    _scrollView = [[UIScrollView alloc] init];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.backgroundColor = UIColor.greenColor;
+    _contentView = [[ContentView alloc] init];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.scrollView addSubview:self.contentView];
+    [self.contentView setupSubviews];
     
-    [self.view addSubview:self.scrollView];
-    [NSLayoutConstraint activateConstraints:@[[self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-                                              [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-                                              [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-                                              [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]]];
-    
-    ContentView *contentView = [[ContentView alloc] init];
-    contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    //    imageView.image = [UIImage imageNamed:@"vidos"];
-    //    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    //
-    //    UILabel *detailsLabel = [[UILabel alloc] init];
-    //    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    //    detailsLabel.text = @"Details details details details details details details details details details details details details details details details details details details details";
-    //    detailsLabel.numberOfLines = 0;
-    //    [detailsLabel sizeToFit];
-    
-    UILabel *durationLabel = [[UILabel alloc] init];
-    durationLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    durationLabel.text = @"00:22:55";
-    
-    UILabel *pubdDateLabel = [[UILabel alloc] init];
-    pubdDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    pubdDateLabel.text = @"15 July 2018";
-    
-    UILabel *detailsLabel = [[UILabel alloc] init];
-    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    detailsLabel.text = self.detailItem.title;
-    detailsLabel.numberOfLines = 0;
-    [detailsLabel sizeToFit];
-    
-    UILabel *authorLabel = [[UILabel alloc] init];
-    authorLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    authorLabel.text = @"Somebody";
-    
-    [self.scrollView addSubview:contentView];
-    [self.scrollView addSubview:detailsLabel];
-    
-    //[self.scrollView addSubview:durationLabel];
-    //[self.scrollView addSubview:pubdDateLabel];
+    _detailsLabel = [[UILabel alloc] init];
+    self.detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.detailsLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
+    self.detailsLabel.numberOfLines = 0;
+    [self.detailsLabel sizeToFit];
+    [self.scrollView addSubview:self.detailsLabel];
     
     [NSLayoutConstraint activateConstraints:@[
-                                              [contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
-                                              [contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
-                                              [contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-                                              [contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor],
+                                              [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+                                              [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+                                              [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+                                              [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
                                               
-                                              [detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:10],
-                                              [detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-10],
-                                              [detailsLabel.topAnchor constraintEqualToAnchor:contentView.bottomAnchor constant:20],
-                                              [detailsLabel.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor constant:-20]
+                                              [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
+                                              [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+                                              [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
+                                              [self.contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor],
+                                              
+                                              [self.detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:15],
+                                              [self.detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-15],
+                                              [self.detailsLabel.topAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:20],
+                                              [self.detailsLabel.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor constant:-20]
                                               ]];
     
-    [contentView setupSubviews];
-    self.view.backgroundColor = UIColor.redColor;
+    [self configureView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,34 +67,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setDetailItem:(Item *)detailItem {
-    _detailItem = detailItem;
-    
-    UILabel *detailsLabel = [[UILabel alloc] init];
-    detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    detailsLabel.text = self.detailItem.title;
-    detailsLabel.numberOfLines = 0;
-    [detailsLabel sizeToFit];
-    
-    [self.scrollView addSubview:detailsLabel];
-    
-    [NSLayoutConstraint activateConstraints:@[
-                                              [detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:10],
-                                              [detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-10],
-                                              [detailsLabel.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor constant:20]
-                                              ]];
-    
-    //[self setupViews];
+- (void)setDetailItem:(Item *)newDetailItem {
+    if (_detailItem != newDetailItem) {
+        _detailItem = newDetailItem;
+        
+        [self configureView];
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)configureView {
+    if (self.detailItem) {
+        
+        self.contentView.imageView.image = [UIImage imageNamed:@"video"];
+        [DataManager getImage:self.detailItem completionHandler:^(UIImage *image) {
+            self.contentView.imageView.image = image;
+        }];
+        
+        self.contentView.authorLabel.text = [NSString stringWithFormat:@"%@ | %@", self.detailItem.author, [DateFormatter getStringFromDate:self.detailItem.pubDate withFormat:@"E, d MMM yyyy"]];
+        self.contentView.titleLabel.text = self.detailItem.title;
+        self.contentView.durationLabel.text = self.detailItem.duration;
+        self.detailsLabel.text = self.detailItem.details;
+    }
 }
-*/
 
 @end

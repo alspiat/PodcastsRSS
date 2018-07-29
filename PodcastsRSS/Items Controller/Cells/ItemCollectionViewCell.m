@@ -69,7 +69,7 @@
 }
 
 - (void)setupSubviews {
-    
+    self.backgroundColor = UIColor.whiteColor;
 }
 
 - (void)configureWithItem:(Item *)item {

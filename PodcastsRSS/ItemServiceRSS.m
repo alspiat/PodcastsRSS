@@ -9,22 +9,9 @@
 #import "ItemServiceRSS.h"
 #import "XMLParser.h"
 #import "Item.h"
-
-static NSString * const itemTag = @"item";
-
-static NSString * const guidField = @"guid";
-static NSString * const titleField = @"title";
-static NSString * const authorField = @"itunes:author";
-static NSString * const pubDateField = @"pubDate";
-static NSString * const durationField = @"itunes:duration";
-static NSString * const detailsField = @"itunes:summary";
-static NSString * const valueField = @"value";
-
-static NSString * const imageField = @"itunes:image";
-static NSString * const imageURLField = @"href";
-
-static NSString * const mediaField = @"enclosure";
-static NSString * const mediaURLField = @"url";
+#import "ItemXMLTagsConstants.h"
+#import "ItemFilterConstants.h"
+#import "DateFormatter.h"
 
 @interface ItemServiceRSS()
 
@@ -62,22 +49,7 @@ static NSString * const mediaURLField = @"url";
         NSMutableArray *items = [[NSMutableArray alloc] init];
         
         for (NSDictionary *itemDict in dictItems) {
-            Item *item = [[Item alloc] init];
-            item.guid = itemDict[guidField][valueField];
-            item.title = itemDict[titleField];
-            item.author = itemDict[authorField];
-            item.details = itemDict[detailsField];
-            item.duration = itemDict[durationField];
-            
-            NSString *dateStr = itemDict[pubDateField];
-            
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"E, dd MMM yyyy HH:mm:ss Z"];
-            NSDate *date = [dateFormat dateFromString:dateStr];
-            
-            item.pubDate = date;
-            item.imageContent = [[Content alloc] initWithWebLink: itemDict[imageField][imageURLField]];
-            item.mediaContent = [[Content alloc] initWithWebLink: itemDict[mediaField][mediaURLField]];
+            Item *item = [self itemWithDictionary:itemDict];
             item.sourceType = type;
             
             [items addObject:item];
@@ -90,4 +62,33 @@ static NSString * const mediaURLField = @"url";
     });
 }
 
+- (Item *)itemWithDictionary:(NSDictionary *)itemDict {
+    
+    Item *item = [[Item alloc] init];
+    item.guid = [self filteredStringWithString:itemDict[guidField][valueField]];
+    item.title = [self filteredStringWithString:itemDict[titleField]];
+    
+    if ([item.title containsString:separatorSymbol]) {
+        NSInteger titleLastIndex = [item.title rangeOfString:separatorSymbol].location;
+        item.title = [item.title substringToIndex: titleLastIndex];
+    }
+
+    item.author = [self filteredStringWithString:itemDict[authorField]];
+    item.details = [self filteredStringWithString:itemDict[detailsField]];
+    item.duration = [itemDict[durationField] stringByReplacingOccurrencesOfString:doubleZeroSymbol withString:emptyString];
+
+    item.pubDate = [DateFormatter getDateFromString:itemDict[pubDateField] withFormat:@"E, dd MMM yyyy HH:mm:ss Z"];
+    item.imageContent = [[ImageContent alloc] initWithWebLink: itemDict[imageField][imageURLField]];
+    item.mediaContent = [[Content alloc] initWithWebLink: itemDict[mediaField][mediaURLField]];
+    
+    return item;
+}
+
+- (NSString *) filteredStringWithString:(NSString *)string {
+    string = [string stringByReplacingOccurrencesOfString:newLineSymbol withString:emptyString];
+    string = [string stringByReplacingOccurrencesOfString:doubleSpaceSymbol withString:emptyString];
+    string = [string stringByReplacingOccurrencesOfString:doubleDashSymbol withString:dashSymbol];
+    
+    return string;
+}
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ItemType.h"
 #import "Content.h"
+#import "ImageContent.h"
 
 @interface Item : NSObject
 
@@ -18,7 +19,7 @@
 @property (copy, nonatomic) NSString *author;
 @property (copy, nonatomic) NSString *duration;
 @property (strong, nonatomic) NSDate *pubDate;
-@property (strong, nonatomic) Content *imageContent;
+@property (strong, nonatomic) ImageContent *imageContent;
 @property (strong, nonatomic) Content *mediaContent;
 @property (assign, nonatomic) ItemType sourceType;
 

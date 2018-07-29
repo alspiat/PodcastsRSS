@@ -7,13 +7,9 @@
 //
 
 #import "XMLParser.h"
+#import "ItemFilterConstants.h"
 
 static NSString * const valueKey = @"value";
-static NSString * const emtyString = @"";
-static NSString * const newLineSymbol = @"\n";
-static NSString * const doubleSpaceSymbol = @"  ";
-static NSString * const doubleDashSymbol = @"--";
-static NSString * const dashSymbol = @"-";
 
 @interface XMLParser() <NSXMLParserDelegate>
 
@@ -83,24 +79,20 @@ static NSString * const dashSymbol = @"-";
         [self.resultsArray addObject:self.itemDict];
     } else if ([self.searchTags containsObject:elementName] && self.itemDict != nil) {
         
-        if (self.itemDict[elementName] != nil && ![self.foundValue isEqualToString:emtyString]) {
+        if (self.itemDict[elementName] != nil && ![self.foundValue isEqualToString:emptyString]) {
             [self.itemDict[elementName] setObject:[NSString stringWithString:self.foundValue] forKey:valueKey];
         } else if (self.itemDict[elementName] == nil) {
             self.itemDict[elementName] = [NSString stringWithString:self.foundValue];
         }
     }
     
-    [self.foundValue setString:emtyString];
+    [self.foundValue setString:emptyString];
     
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
     if ([self.searchTags containsObject:self.currentElement]) {
-        string = [string stringByReplacingOccurrencesOfString:newLineSymbol withString:emtyString];
-        string = [string stringByReplacingOccurrencesOfString:doubleSpaceSymbol withString:emtyString];
-        string = [string stringByReplacingOccurrencesOfString:doubleDashSymbol withString:dashSymbol];
-        
         [self.foundValue appendString:string];
     }
     

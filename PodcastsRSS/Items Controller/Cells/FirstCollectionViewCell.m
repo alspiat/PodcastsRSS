@@ -15,14 +15,17 @@ NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
 @implementation FirstCollectionViewCell
 
 - (void)setupSubviews {
+    [super setupSubviews];
+    
     self.imageView.image = [UIImage imageNamed:@"video"];
+    
     self.authorLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightLight];
     self.authorLabel.textColor = UIColor.whiteColor;
+    
     self.titleLabel.font = [UIFont systemFontOfSize:18.0 weight:UIFontWeightBold];
     self.titleLabel.textColor = UIColor.whiteColor;
-    self.titleLabel.numberOfLines = 2;
-    
-    self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    self.titleLabel.numberOfLines = 0;
+    [self.titleLabel sizeToFit];
     
     [self addSubview:self.imageView];
     [self addSubview:self.titleLabel];
@@ -51,7 +54,7 @@ NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
     self.titleLabel.text = item.title;
     self.authorLabel.text = item.author;
     
-    [DataManager getItemImage:item completionHandler:^(UIImage *image) {
+    [DataManager getImage:item completionHandler:^(UIImage *image) {
         self.imageView.image = image;
     }];
 }

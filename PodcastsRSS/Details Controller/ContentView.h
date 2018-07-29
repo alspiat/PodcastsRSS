@@ -10,6 +10,11 @@
 
 @interface ContentView : UIView
 
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *authorLabel;
+@property (strong, nonatomic) UILabel *durationLabel;
+
 - (void) setupSubviews;
 
 @end

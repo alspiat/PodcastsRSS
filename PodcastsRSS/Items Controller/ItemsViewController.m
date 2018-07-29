@@ -34,6 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.navigationItem.title = @"Podcasts";
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -42,14 +44,14 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-    self.collectionView.backgroundColor = UIColor.whiteColor;
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addSubview:self.collectionView];
     [NSLayoutConstraint activateConstraints:@[[self.collectionView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-                                              [self.collectionView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-                                              [self.collectionView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-                                              [self.collectionView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]]];
+                                              [self.collectionView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+                                              [self.collectionView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+                                              [self.collectionView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]]];
     
     [self.collectionView registerClass:VideoCollectionViewCell.class forCellWithReuseIdentifier:videoItemCellIdentifier];
     [self.collectionView registerClass:AudioCollectionViewCell.class forCellWithReuseIdentifier:audioItemCellIdentifier];
@@ -67,6 +69,10 @@
         [self.collectionView reloadData];
     }];
 
+}
+
+- (void)viewWillLayoutSubviews {
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)didReceiveMemoryWarning {

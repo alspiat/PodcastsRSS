@@ -13,6 +13,7 @@
 
 @interface DataManager : NSObject
 
-+ (void) getItemImage:(Item*)item completionHandler: (void(^)(UIImage *image)) completionHandler;
++ (void) getPreviewImage:(Item*)item completionHandler: (void(^)(UIImage *image)) completionHandler;
++ (void) getImage:(Item*)item completionHandler: (void(^)(UIImage *image)) completionHandler;
 
 @end

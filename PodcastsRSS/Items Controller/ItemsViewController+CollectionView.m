@@ -8,19 +8,16 @@
 
 #import "ItemsViewController.h"
 #import "ItemsViewController+CollectionView.h"
+
 #import "VideoCollectionViewCell.h"
 #import "AudioCollectionViewCell.h"
 #import "FirstCollectionViewCell.h"
 #import "ItemCollectionViewCell.h"
+
 #import "Item.h"
-#import "DetailsViewController.h"
 #import "ControllersManager.h"
 
 @implementation ItemsViewController (CollectionView)
-
-- (void)viewWillLayoutSubviews {
-    [self.collectionView.collectionViewLayout invalidateLayout];
-}
 
 // MARK: - CollectionView dataSource methods
 
@@ -43,15 +40,15 @@
                 break;
         }
     }
-    
     [cell configureWithItem:self.itemsDatasource[indexPath.row]];
+    
     return cell;
 }
 
 // MARK: - CollectionView delegate methods
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [ControllersManager.sharedManager showDetailsViewControllerWithItem:self.itemsDatasource[indexPath.row]];
+    [ControllersManager showDetailsViewControllerWithItem:self.itemsDatasource[indexPath.row]];
 }
 
 // MARK: - CollectionView flowLayout delegate methods
@@ -68,7 +65,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 5.0;
+    return 1.0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {

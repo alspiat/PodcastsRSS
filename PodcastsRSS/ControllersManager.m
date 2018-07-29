@@ -33,15 +33,14 @@ static ControllersManager *_sharedManager = nil;
 {
     self = [super init];
     if (self) {
-        
         ItemsViewController *itemsViewController = [[ItemsViewController alloc] init];
         DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
         
-        self.itemsNavigationController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
-        self.detailsNavigationController = [[UINavigationController alloc] initWithRootViewController:detailsViewController];
+        _itemsNavigationController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
+        _detailsNavigationController = [[UINavigationController alloc] initWithRootViewController:detailsViewController];
         
         _splitViewController = [[UISplitViewController alloc] init];
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.itemsNavigationController, nil];
+        self.splitViewController.viewControllers = [NSArray arrayWithObjects:self.itemsNavigationController, self.detailsNavigationController, nil];
         self.splitViewController.delegate = self;
         self.splitViewController.view.backgroundColor = UIColor.whiteColor;
         self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
@@ -52,10 +51,10 @@ static ControllersManager *_sharedManager = nil;
     return self;
 }
 
-- (void)showDetailsViewControllerWithItem:(Item *)item {
-    DetailsViewController *detailsViewController = self.detailsNavigationController.viewControllers.firstObject;
++ (void)showDetailsViewControllerWithItem:(Item *)item {
+    DetailsViewController *detailsViewController = _sharedManager.detailsNavigationController.viewControllers.firstObject;
     [detailsViewController setDetailItem:item];
-    [self.splitViewController showDetailViewController:self.detailsNavigationController sender:nil];
+    [_sharedManager.splitViewController showDetailViewController:_sharedManager.detailsNavigationController sender:nil];
 }
 
 // MARK: - UISplitViewController delegate methods

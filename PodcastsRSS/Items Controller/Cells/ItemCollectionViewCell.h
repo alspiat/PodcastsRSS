@@ -19,5 +19,6 @@
 @property (strong, nonatomic) UILabel *durationLabel;
 
 - (void)configureWithItem: (Item*) item;
+- (void)setupSubviews;
 
 @end

@@ -16,7 +16,6 @@
 @property (readonly, strong, nonatomic) UISplitViewController *splitViewController;
 
 + (ControllersManager *) sharedManager;
-
-- (void) showDetailsViewControllerWithItem: (Item *) item;
++ (void) showDetailsViewControllerWithItem: (Item *) item;
 
 @end

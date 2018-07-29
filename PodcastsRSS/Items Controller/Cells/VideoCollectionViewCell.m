@@ -34,8 +34,10 @@ NSString * const videoItemCellIdentifier = @"videoItemCellIdentifier";
 }
 
 - (void)setupSubviews {
-    self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    [super setupSubviews];
+    
     self.imageView.image = [UIImage imageNamed:@"video"];
+    self.imageView.layer.cornerRadius = 3.0;
     
     UIStackView *stackView = [[UIStackView alloc] init];
     stackView.axis = UILayoutConstraintAxisVertical;
@@ -74,7 +76,7 @@ NSString * const videoItemCellIdentifier = @"videoItemCellIdentifier";
     self.durationLabel.text = [NSString stringWithFormat:@" %@ ", item.duration];
     self.pubDateLabel.text = [NSString stringWithFormat:@"%@", item.pubDate];
     
-    [DataManager getItemImage:item completionHandler:^(UIImage *image) {
+    [DataManager getPreviewImage:item completionHandler:^(UIImage *image) {
         self.imageView.image = image;
     }];
 }
