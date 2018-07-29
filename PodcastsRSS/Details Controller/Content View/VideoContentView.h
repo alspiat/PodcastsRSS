@@ -1,5 +1,5 @@
 //
-//  VideoDetailsView.h
+//  ContentView.h
 //  PodcastsRSS
 //
 //  Created by Aliaksei Piatyha on 7/26/18.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContentView.h"
 
-@interface VideoDetailsView : UIView
+@interface VideoContentView : ContentView
 
 @end

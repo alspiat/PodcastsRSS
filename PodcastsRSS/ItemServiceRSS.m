@@ -75,7 +75,7 @@
 
     item.author = [self filteredStringWithString:itemDict[authorField]];
     item.details = [self filteredStringWithString:itemDict[detailsField]];
-    item.duration = [itemDict[durationField] stringByReplacingOccurrencesOfString:doubleZeroSymbol withString:emptyString];
+    item.duration = [[self filteredStringWithString:itemDict[durationField]] stringByReplacingOccurrencesOfString:doubleZeroSymbol withString:emptyString];
 
     item.pubDate = [DateFormatter getDateFromString:itemDict[pubDateField] withFormat:@"E, dd MMM yyyy HH:mm:ss Z"];
     item.imageContent = [[ImageContent alloc] initWithWebLink: itemDict[imageField][imageURLField]];

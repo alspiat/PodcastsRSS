@@ -26,6 +26,8 @@
 
 @interface ItemsViewController ()
 
+@property (strong, nonatomic) UISwitch *offlineModeSwitch;
+
 @end
 
 @implementation ItemsViewController
@@ -35,6 +37,10 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.navigationItem.title = @"Podcasts";
+    
+    _offlineModeSwitch = [[UISwitch alloc] init];
+    [self.offlineModeSwitch addTarget:self action:@selector(offlineModeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: self.offlineModeSwitch];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
@@ -69,6 +75,10 @@
         [self.collectionView reloadData];
     }];
 
+}
+
+- (void)offlineModeSwitchChanged:(id)sender {
+    NSLog(@"Changed mode");
 }
 
 - (void)viewWillLayoutSubviews {
