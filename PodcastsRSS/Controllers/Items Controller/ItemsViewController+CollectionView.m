@@ -16,8 +16,7 @@
 
 #import "Item.h"
 #import "ControllersManager.h"
-#import "DataManager.h"
-#import "ThreadUtils.h"
+#import "DataManager+Content.h"
 
 @implementation ItemsViewController (CollectionView)
 
@@ -45,7 +44,7 @@
     
     Item *currentItem = self.itemsDatasource[indexPath.row];
 
-    [cell configureWithItem:self.itemsDatasource[indexPath.row]];
+    [cell configureWithItem:currentItem];
     
     [DataManager getPreviewImage:currentItem completionHandler:^(UIImage *image) {
         [cell configureImage:image withImageContent:currentItem.imageContent];

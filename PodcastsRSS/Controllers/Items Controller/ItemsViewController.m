@@ -7,15 +7,14 @@
 //
 
 #import "ItemsViewController.h"
-#import "RssService.h"
+#import "ItemsViewController+CollectionView.h"
 #import "Item.h"
+
 #import "VideoCollectionViewCell.h"
 #import "AudioCollectionViewCell.h"
 #import "FirstCollectionViewCell.h"
-#import "ItemsViewController+CollectionView.h"
-#import "CoreDataService.h"
 
-#import "DataManager.h"
+#import "DataManager+Fetching.h"
 
 @interface ItemsViewController ()
 

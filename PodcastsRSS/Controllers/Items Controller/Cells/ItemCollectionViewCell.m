@@ -9,6 +9,7 @@
 #import "ItemCollectionViewCell.h"
 #import "Item.h"
 #import "DataManager.h"
+#import "CellConstants.h"
 
 @interface ItemCollectionViewCell()
 
@@ -46,18 +47,18 @@
     
     self.durationLabel = [[UILabel alloc] init];
     self.durationLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.durationLabel.font = [UIFont systemFontOfSize:12.0];
+    self.durationLabel.font = [UIFont systemFontOfSize:cellTextSizeLittle];
     self.durationLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
     self.durationLabel.textColor = UIColor.whiteColor;
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.titleLabel.font = [UIFont systemFontOfSize:13.0 weight:UIFontWeightBold];
+    self.titleLabel.font = [UIFont systemFontOfSize:cellTextSizeLarge weight:UIFontWeightBold];
     self.titleLabel.numberOfLines = 3;
     
     self.authorLabel = [[UILabel alloc] init];
     self.authorLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.authorLabel.font = [UIFont systemFontOfSize:13.0 weight:UIFontWeightLight];
+    self.authorLabel.font = [UIFont systemFontOfSize:cellTextSizeLarge weight:UIFontWeightLight];
 }
 
 - (void)configureImage:(UIImage *)image withImageContent:(ImageContent *)imageContent {

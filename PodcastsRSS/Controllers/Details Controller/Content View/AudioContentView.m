@@ -7,6 +7,7 @@
 //
 
 #import "AudioContentView.h"
+#import "ContentViewConstants.h"
 
 @interface AudioContentView()
 
@@ -18,11 +19,11 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
-    self.imageView.image = [UIImage imageNamed:@"audio_placeholder"];
+    self.imageView.image = [UIImage imageNamed:audioPlaceholder];
     
     _stackView = [[UIStackView alloc] init];
     self.stackView.axis = UILayoutConstraintAxisVertical;
-    self.stackView.spacing = 10.0;
+    self.stackView.spacing = contentViewRowSpacing;
     self.stackView.distribution = UIStackViewDistributionFillProportionally;
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -45,24 +46,24 @@
     [NSLayoutConstraint activateConstraints:@[
                                               [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-                                              [self.imageView.widthAnchor constraintEqualToAnchor:self.widthAnchor multiplier:0.3],
+                                              [self.imageView.widthAnchor constraintEqualToAnchor:self.widthAnchor multiplier:audioContentViewImageSizeFactor],
                                               [self.imageView.heightAnchor constraintEqualToAnchor:self.imageView.widthAnchor],
                                               
                                               [self.stackView.centerYAnchor constraintEqualToAnchor:self.imageView.centerYAnchor],
-                                              [self.stackView.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:15.0],
+                                              [self.stackView.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:audioContentViewRowOffset],
                                               [self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
                                               
-                                              [self.playerView.heightAnchor constraintEqualToConstant:43],
+                                              [self.playerView.heightAnchor constraintEqualToConstant:audioContentViewPlayerHeight],
                                               [self.playerView.trailingAnchor constraintEqualToAnchor:self.stackView.trailingAnchor],
                                               
                                               [self.activityButton.centerYAnchor constraintEqualToAnchor:self.durationLabel.centerYAnchor],
                                               [self.activityButton.trailingAnchor constraintEqualToAnchor:self.durationLabel.trailingAnchor],
-                                              [self.activityButton.heightAnchor constraintEqualToConstant:25.0],
+                                              [self.activityButton.heightAnchor constraintEqualToConstant:audioContentViewActivityButtonSize],
                                               [self.activityButton.widthAnchor constraintEqualToAnchor:self.activityButton.heightAnchor],
                                               
                                               [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-                                              [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:15],
+                                              [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:audioContentViewRowOffset],
                                               
                                               [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
                                               ]];

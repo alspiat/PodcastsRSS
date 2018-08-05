@@ -7,6 +7,7 @@
 //
 
 #import "VideoContentView.h"
+#import "ContentViewConstants.h"
 
 @interface VideoContentView()
 
@@ -18,8 +19,8 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
-    self.imageView.image = [UIImage imageNamed:@"video_placeholder"];
-    [self.playButton setImage:[UIImage imageNamed:@"play_button"] forState:UIControlStateNormal];
+    self.imageView.image = [UIImage imageNamed:videoPlaceholder];
+    [self.playButton setImage:[UIImage imageNamed:playButtonImageName] forState:UIControlStateNormal];
     
     [self addSubview:self.imageView];
     [self addSubview:self.progressView];
@@ -41,7 +42,7 @@
                                               [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
                                               [self.imageView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-                                              [self.imageView.heightAnchor constraintEqualToAnchor:self.imageView.widthAnchor multiplier:0.6],
+                                              [self.imageView.heightAnchor constraintEqualToAnchor:self.imageView.widthAnchor multiplier:videoContentViewImageRation],
                                               
                                               [self.playerView.leadingAnchor constraintEqualToAnchor:self.imageView.leadingAnchor],
                                               [self.playerView.topAnchor constraintEqualToAnchor:self.imageView.topAnchor],
@@ -53,23 +54,23 @@
                                               
                                               [self.activityButton.centerYAnchor constraintEqualToAnchor:self.authorLabel.centerYAnchor],
                                               [self.activityButton.trailingAnchor constraintEqualToAnchor:self.authorLabel.trailingAnchor],
-                                              [self.activityButton.heightAnchor constraintEqualToConstant:30.0],
+                                              [self.activityButton.heightAnchor constraintEqualToConstant:videoContentViewActivityButtonSize],
                                               [self.activityButton.widthAnchor constraintEqualToAnchor:self.activityButton.heightAnchor],
                                               
                                               [self.progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-                                              [self.progressView.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:5.0],
+                                              [self.progressView.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:videoContentViewRowSpacing],
                                               
                                               [self.authorLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.authorLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-                                              [self.authorLabel.topAnchor constraintEqualToAnchor:self.progressView.bottomAnchor constant:10.0],
+                                              [self.authorLabel.topAnchor constraintEqualToAnchor:self.progressView.bottomAnchor constant:2 * videoContentViewRowSpacing],
                                               
                                               [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-                                              [self.titleLabel.topAnchor constraintEqualToAnchor:self.authorLabel.bottomAnchor constant:5],
+                                              [self.titleLabel.topAnchor constraintEqualToAnchor:self.authorLabel.bottomAnchor constant:videoContentViewRowSpacing],
                                               
                                               [self.durationLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-                                              [self.durationLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:5],
+                                              [self.durationLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:videoContentViewRowSpacing],
                                               [self.durationLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
                                               ]];
 }

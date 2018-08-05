@@ -22,6 +22,7 @@
     item.duration = itemDict[durationField];
     item.pubDate = [NSDate dateFromString: itemDict[pubDateField]];
     item.sourceType = type;
+    item.isSaved = NO;
     
     item.imageContent = [[ImageContent alloc] initWithWebLink: itemDict[imageField][imageURLField]];
     item.mediaContent = [[Content alloc] initWithWebLink: itemDict[mediaField][mediaURLField]];

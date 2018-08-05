@@ -90,6 +90,10 @@
     return _persistentContainer;
 }
 
+- (NSManagedObjectContext *)context {
+    return self.persistentContainer.viewContext;
+}
+
 #pragma mark - Core Data Saving support
 
 - (void)saveContext {

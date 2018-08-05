@@ -28,18 +28,11 @@ static NSString * const valueKey = @"value";
 
 @implementation XMLParser
 
-- (instancetype)initWithURL:(NSURL *)url forItem:(NSString *)item
-{
-    self = [super init];
-    if (self) {
-        _xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-        self.xmlParser.delegate = self;
-        self.item = item;
-    }
-    return self;
-}
-
-- (NSArray *) parseTags:(NSArray *)searchTags {
+- (NSArray *)startParsingURL:(NSURL *)url withItem:(NSString *)item tags:(NSArray *)searchTags {
+    self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    self.xmlParser.delegate = self;
+    
+    self.item = item;
     self.searchTags = searchTags;
     [self.xmlParser parse];
     
@@ -51,14 +44,6 @@ static NSString * const valueKey = @"value";
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
     self.resultsArray = [[NSMutableArray alloc] init];
     self.foundValue = [[NSMutableString alloc] init];
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-    
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    NSLog(@"%@", [parseError localizedDescription]);
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {

@@ -4,8 +4,10 @@
         <attribute name="localLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="webLink" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="ImageContentMO" representedClassName="ImageContentMO" parentEntity="ContentMO" syncable="YES">
+    <entity name="ImageContentMO" representedClassName="ImageContentMO" syncable="YES">
+        <attribute name="localLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="previewLocalLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="webLink" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ItemMO" representedClassName="ItemMO" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,12 +17,12 @@
         <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="sourceType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imageContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageContentMO" syncable="YES"/>
-        <relationship name="mediaContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContentMO" syncable="YES"/>
+        <relationship name="imageContent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ImageContentMO" syncable="YES"/>
+        <relationship name="mediaContent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ContentMO" syncable="YES"/>
     </entity>
     <elements>
         <element name="ContentMO" positionX="-54" positionY="-9" width="128" height="75"/>
         <element name="ItemMO" positionX="-63" positionY="-18" width="128" height="180"/>
-        <element name="ImageContentMO" positionX="-54" positionY="54" width="128" height="60"/>
+        <element name="ImageContentMO" positionX="-54" positionY="54" width="128" height="90"/>
     </elements>
 </model>

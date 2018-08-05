@@ -8,6 +8,7 @@
 
 #import "FirstCollectionViewCell.h"
 #import "DataManager.h"
+#import "CellConstants.h"
 
 NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
 
@@ -16,13 +17,13 @@ NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
 - (void)setupSubviews {
     [super setupSubviews];
     
-    self.imageView.image = [UIImage imageNamed:@"video_placeholder"];
+    self.imageView.image = [UIImage imageNamed:videoPlaceholder];
 
     
-    self.authorLabel.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular];
+    self.authorLabel.font = [UIFont systemFontOfSize:firstCellTextSizeLittle weight:UIFontWeightRegular];
     self.authorLabel.textColor = UIColor.whiteColor;
     
-    self.titleLabel.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+    self.titleLabel.font = [UIFont systemFontOfSize:firstCellTextSizeLarge weight:UIFontWeightBold];
     self.titleLabel.textColor = UIColor.whiteColor;
     self.titleLabel.numberOfLines = 0;
     [self.titleLabel sizeToFit];
@@ -47,18 +48,18 @@ NSString * const firstItemCellIdentifier = @"firstItemCellIdentifier";
                                               [tmpView.topAnchor constraintEqualToAnchor:self.topAnchor],
                                               [tmpView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
                                               
-                                              [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.imageView.leadingAnchor constant:10.0],
-                                              [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-10.0],
-                                              [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:-10.0],
+                                              [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.imageView.leadingAnchor constant:cellContentOffset],
+                                              [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-cellContentOffset],
+                                              [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:-cellContentOffset],
                                               
-                                              [self.authorLabel.leadingAnchor constraintEqualToAnchor:self.imageView.leadingAnchor constant:10.0],
-                                              [self.authorLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-10.0],
-                                              [self.authorLabel.bottomAnchor constraintEqualToAnchor:self.titleLabel.topAnchor constant:-5.0]
+                                              [self.authorLabel.leadingAnchor constraintEqualToAnchor:self.imageView.leadingAnchor constant:cellContentOffset],
+                                              [self.authorLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-cellContentOffset],
+                                              [self.authorLabel.bottomAnchor constraintEqualToAnchor:self.titleLabel.topAnchor constant:-cellRowSpacing]
                                               ]];
 }
 
 - (void)prepareForReuse {
-    self.imageView.image = [UIImage imageNamed:@"video_placeholder"];
+    self.imageView.image = [UIImage imageNamed:videoPlaceholder];
 }
 
 @end

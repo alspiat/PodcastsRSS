@@ -10,10 +10,18 @@
 
 @interface FileManager : NSObject
 
-@property (readonly, copy, nonatomic) NSString *imagesDirPath;
-@property (readonly, copy, nonatomic) NSString *previewsDirPath;
-@property (readonly, copy, nonatomic) NSString *contentDirPath;
-
 + (FileManager *)sharedManager;
+
++ (NSString *)imagesFolder;
++ (NSString *)previewsFolder;
++ (NSString *)contentFolder;
+
+- (NSString *)getFullPathFolder:(NSString *)folder filename:(NSString *)filename;
+- (NSString *)getFilenameFromStringURL:(NSString *)urlString;
+
+- (BOOL)createFile:(NSString *)fileName withData:(NSData *)data atFolder:(NSString *)folder;
+- (BOOL)fileExistsAtFolder:(NSString *)folder forName:(NSString *)filename;
+- (BOOL)moveTempFile:(NSString *)tempFilename toFolder:(NSString *)folder withName:(NSString *)filename;
+- (BOOL)deleteFile:(NSString *)filename atFolder:(NSString *)folder;
 
 @end

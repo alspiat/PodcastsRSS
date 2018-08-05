@@ -10,10 +10,12 @@
 #import "VideoContentView.h"
 #import "AudioContentView.h"
 #import "Item.h"
-#import "DataManager.h"
+#import "DataManager+Content.h"
 
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
+
+#import "ContentViewConstants.h"
 
 @interface DetailsViewController ()
 
@@ -37,7 +39,7 @@
     
     self.detailsLabel = [[UILabel alloc] init];
     self.detailsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.detailsLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
+    self.detailsLabel.font = [UIFont systemFontOfSize:detailsLabelTextSize weight:UIFontWeightThin];
     self.detailsLabel.numberOfLines = 0;
     [self.scrollView addSubview:self.detailsLabel];
     
@@ -83,11 +85,7 @@
         [self.contentView.playButton addTarget:self action:@selector(playButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView.activityButton addTarget:self action:@selector(activityButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
-        if (self.detailItem.isSaved) {
-            [self.contentView.activityButton setImage:[UIImage imageNamed:@"delete_button"] forState:UIControlStateNormal];
-        } else {
-            [self.contentView.activityButton setImage:[UIImage imageNamed:@"download_button"] forState:UIControlStateNormal];
-        }
+        [self configureActivityButton];
         
         [self.contentView configureWithItem:self.detailItem];
         self.detailsLabel.text = self.detailItem.details;
@@ -121,16 +119,16 @@
     [self.scrollView addSubview:self.contentView];
     
     [NSLayoutConstraint activateConstraints:@[
-                                              [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:15.0],
-                                              [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:15.0],
-                                              [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor constant:15.0],
-                                              [self.contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor constant:-30.0]
+                                              [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:contentViewSideOffset],
+                                              [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:contentViewSideOffset],
+                                              [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor constant:contentViewSideOffset],
+                                              [self.contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor constant:-2 * contentViewSideOffset]
                                               ]];
     
-    [NSLayoutConstraint activateConstraints:@[[self.detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:15],
-                                              [self.detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-15],
-                                              [self.detailsLabel.topAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:20],
-                                              [self.detailsLabel.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor constant:-20]
+    [NSLayoutConstraint activateConstraints:@[[self.detailsLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor constant:contentViewSideOffset],
+                                              [self.detailsLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-contentViewSideOffset],
+                                              [self.detailsLabel.topAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:detailsLabelOffset],
+                                              [self.detailsLabel.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor]
                                               ]];
 }
 
@@ -143,7 +141,6 @@
 - (void)activityButtonTapped:(id)sender {
     if (self.detailItem.isSaved) {
         [DataManager removeItemFromOffline:self.detailItem];
-        [self.contentView.activityButton setImage:[UIImage imageNamed:@"download_button"] forState:UIControlStateNormal];
     } else {
         
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -160,7 +157,15 @@
         
         [activityIndicator startAnimating];
         [self.contentView.activityButton setHidden:YES];
-        [self.contentView.activityButton setImage:[UIImage imageNamed:@"delete_button"] forState:UIControlStateNormal];
+    }
+    [self configureActivityButton];
+}
+
+- (void)configureActivityButton {
+    if (self.detailItem.isSaved) {
+        [self.contentView.activityButton setImage:[UIImage imageNamed:deleteButtonImageName] forState:UIControlStateNormal];
+    } else {
+        [self.contentView.activityButton setImage:[UIImage imageNamed:downloadButtonImageName] forState:UIControlStateNormal];
     }
 }
 

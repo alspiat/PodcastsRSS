@@ -53,7 +53,6 @@ static ControllersManager *_sharedManager = nil;
 
 + (void)showDetailsViewControllerWithItem:(Item *)item {
     DetailsViewController *detailsViewController = _sharedManager.detailsNavigationController.viewControllers.firstObject;
-    //detailsViewController.view;
     [detailsViewController setDetailItem:item];
     [_sharedManager.splitViewController showDetailViewController:_sharedManager.detailsNavigationController sender:nil];
 }

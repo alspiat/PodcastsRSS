@@ -7,7 +7,7 @@
 //
 //
 
-#import "ContentMO+CoreDataClass.h"
+#import "ContentMO.h"
 #import "Content.h"
 
 NSString * const ContentMOEntityName = @"ContentMO";

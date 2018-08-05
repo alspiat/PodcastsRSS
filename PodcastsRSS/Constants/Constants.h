@@ -9,5 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
+static NSString * const downloadButtonImageName = @"download_button";
+static NSString * const deleteButtonImageName = @"delete_button";
 
 #endif /* Constants_h */

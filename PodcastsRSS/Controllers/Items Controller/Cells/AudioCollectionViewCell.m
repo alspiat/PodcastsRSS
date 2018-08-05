@@ -8,6 +8,7 @@
 
 #import "AudioCollectionViewCell.h"
 #import "DataManager.h"
+#import "CellConstants.h"
 
 NSString * const audioItemCellIdentifier = @"audioItemCellIdentifier";
 
@@ -16,12 +17,12 @@ NSString * const audioItemCellIdentifier = @"audioItemCellIdentifier";
 - (void)setupSubviews {
     [super setupSubviews];
     
-    self.imageView.image = [UIImage imageNamed:@"audio_placeholder"];
-    self.imageView.layer.cornerRadius = 3.0;
+    self.imageView.image = [UIImage imageNamed:audioPlaceholder];
+    self.imageView.layer.cornerRadius = cellCornerRadius;
     
     UIStackView *stackView = [[UIStackView alloc] init];
     stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.spacing = 5.0;
+    stackView.spacing = cellRowSpacing;
     stackView.distribution = UIStackViewDistributionFillProportionally;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -33,21 +34,21 @@ NSString * const audioItemCellIdentifier = @"audioItemCellIdentifier";
     [stackView addArrangedSubview:self.titleLabel];
     
     [NSLayoutConstraint activateConstraints:@[[self.imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-                                              [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10.0],
-                                              [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor constant:10.0],
-                                              [self.imageView.widthAnchor constraintEqualToConstant:100.0],
+                                              [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:cellContentOffset],
+                                              [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor constant:cellContentOffset],
+                                              [self.imageView.widthAnchor constraintEqualToConstant:cellImageViewWidth],
                                               
-                                              [self.durationLabel.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:-4.0],
-                                              [self.durationLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-4.0],
+                                              [self.durationLabel.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:-cellDurationOffset],
+                                              [self.durationLabel.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:-cellDurationOffset],
                                               
                                               [stackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-                                              [stackView.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:10.0],
-                                              [stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-10.0]
+                                              [stackView.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:cellContentOffset],
+                                              [stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-cellContentOffset]
                                               ]];
 }
 
 - (void)prepareForReuse {
-    self.imageView.image = [UIImage imageNamed:@"audio_placeholder"];
+    self.imageView.image = [UIImage imageNamed:audioPlaceholder];
 }
 
 @end

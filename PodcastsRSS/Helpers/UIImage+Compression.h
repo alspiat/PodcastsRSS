@@ -11,6 +11,6 @@
 @interface UIImage (Compression)
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size;
-+ (NSData *)dataWithImage:(UIImage *)image compressedWithFactor:(float)compressFactor;
+- (NSData *)dataCompressedWithFactor:(float)compressFactor;
 
 @end

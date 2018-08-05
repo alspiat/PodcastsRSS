@@ -16,10 +16,9 @@ static NSString * const contentDirectory = @"Content";
 
 @interface FileManager()
 
-@property (strong, nonatomic) NSFileManager *fileManager;
-@property (readwrite, copy, nonatomic) NSString *imagesDirPath;
-@property (readwrite, copy, nonatomic) NSString *previewsDirPath;
-@property (readwrite, copy, nonatomic) NSString *contentDirPath;
+@property (readwrite, copy, nonatomic) NSString *imagesFolderPath;
+@property (readwrite, copy, nonatomic) NSString *previewsFolderPath;
+@property (readwrite, copy, nonatomic) NSString *contentFolderPath;
 
 @end
 
@@ -32,14 +31,64 @@ static NSString * const contentDirectory = @"Content";
     return _sharedManager;
 }
 
++ (NSString *)imagesFolder {
+    return FileManager.sharedManager.imagesFolderPath;
+}
+
++ (NSString *)previewsFolder {
+    return FileManager.sharedManager.previewsFolderPath;
+}
+
++ (NSString *)contentFolder {
+    return FileManager.sharedManager.contentFolderPath;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.fileManager = NSFileManager.defaultManager;
         [self createDirectories];
     }
     return self;
+}
+
+- (NSFileManager *)fileManager {
+    return NSFileManager.defaultManager;
+}
+
+- (NSString *)getFullPathFolder:(NSString *)folder filename:(NSString *)filename {
+    return [folder stringByAppendingPathComponent:filename];
+}
+
+- (NSString *)getFilenameFromStringURL:(NSString *)urlString {
+    NSString *filename = [NSURL URLWithString:urlString].lastPathComponent;
+    return filename;
+}
+
+- (BOOL)createFile:(NSString *)fileName withData:(NSData *)data atFolder:(NSString *)folder {
+    NSString *filePath = [self getFullPathFolder:folder filename:fileName];
+    return [self.fileManager createFileAtPath:filePath contents:data attributes:nil];
+}
+
+- (BOOL)fileExistsAtFolder:(NSString *)folder forName:(NSString *)filename {
+    NSString *filePath = [self getFullPathFolder:folder filename:filename];
+    return [self.fileManager fileExistsAtPath:filePath];
+}
+
+- (BOOL)moveTempFile:(NSString *)tempFilename toFolder:(NSString *)folder withName:(NSString *)filename {
+    NSString *sourcePath = [self getFullPathFolder:NSTemporaryDirectory() filename:tempFilename];
+    NSString *destinationPath = [self getFullPathFolder:FileManager.contentFolder filename:filename];
+    return [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:nil];
+}
+
+- (BOOL)deleteFile:(NSString *)filename atFolder:(NSString *)folder {
+    NSString *filePath = [self getFullPathFolder:folder filename:filename];
+    NSLog(@"Filepath: %@", filePath);
+    BOOL success = NO;
+    if (filename) {
+        success = [self.fileManager removeItemAtPath:filePath error:nil];
+    }
+    return success;
 }
 
 - (void)createDirectories {
@@ -55,15 +104,15 @@ static NSString * const contentDirectory = @"Content";
     NSString *contentPath = [documentsDirectory stringByAppendingPathComponent:contentDirectory];
     
     if ([self.fileManager createDirectoryAtPath:previewsPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-        self.previewsDirPath = previewsPath;
+        self.previewsFolderPath = previewsPath;
     }
     
     if ([self.fileManager createDirectoryAtPath:imagesPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-        self.imagesDirPath = imagesPath;
+        self.imagesFolderPath = imagesPath;
     }
     
     if ([self.fileManager createDirectoryAtPath:contentPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-        self.contentDirPath = contentPath;
+        self.contentFolderPath = contentPath;
     }
 }
 

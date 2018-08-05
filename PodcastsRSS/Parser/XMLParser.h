@@ -10,7 +10,6 @@
 
 @interface XMLParser : NSObject
 
-- (XMLParser *)initWithURL:(NSURL *)url forItem:(NSString *)item;
-- (NSArray *)parseTags:(NSArray *)searchTags;
+- (NSArray *)startParsingURL:(NSURL *)url withItem:(NSString *)item tags:(NSArray *)searchTags;
 
 @end
