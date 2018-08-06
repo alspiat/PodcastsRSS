@@ -12,7 +12,7 @@
 #import "FileManager.h"
 #import "UIImage+Compression.h"
 #import "Downloader.h"
-#import "ThreadUtils.h"
+#import "GCDUtils.h"
 
 @implementation DataManager (Content)
 
@@ -49,7 +49,7 @@
             UIImage *image = [UIImage imageWithData:data];
             item.imageContent.previewLocalLink = imageName;
             
-            [ThreadUtils performOnMain:^{
+            [GCDUtils performOnMain:^{
                 completionHandler(image);
             }];
         }];
@@ -77,7 +77,7 @@
             UIImage *image = [UIImage imageWithData:data];
             item.imageContent.localLink = imageName;
             
-            [ThreadUtils performOnMain:^{
+            [GCDUtils performOnMain:^{
                 completionHandler(image);
             }];
         }];

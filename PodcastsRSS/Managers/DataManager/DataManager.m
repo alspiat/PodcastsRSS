@@ -10,7 +10,7 @@
 #import "Item.h"
 #import "FileManager.h"
 #import "Downloader.h"
-#import "ThreadUtils.h"
+#import "GCDUtils.h"
 
 #import "CoreDataService.h"
 
@@ -26,7 +26,7 @@
     
     [downloader downloadFileWithURL:item.mediaContent.webLink withCompletionHandler:^(NSString *path) {
         
-        [ThreadUtils performOnMain:^{
+        [GCDUtils performOnMain:^{
             item.mediaContent.localLink = path;
             item.isSaved = YES;
             [coreDataService addItem:item];

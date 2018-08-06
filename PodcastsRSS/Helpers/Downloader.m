@@ -7,7 +7,7 @@
 //
 
 #import "Downloader.h"
-#import "ThreadUtils.h"
+#import "GCDUtils.h"
 #import "FileManager.h"
 
 @interface Downloader() <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>
@@ -20,7 +20,7 @@
 @implementation Downloader
 
 + (void)downloadDataWithURL:(NSString *)urlString withCompletionHandler:(BlockWithData)completionHandler {
-    [ThreadUtils performInBackground:^{
+    [GCDUtils performInBackground:^{
         NSURL *url = [NSURL URLWithString:urlString];
         NSData *data = [NSData dataWithContentsOfURL:url];
         completionHandler(data);
@@ -39,7 +39,7 @@
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     if ([FileManager.sharedManager moveTempFile:location.lastPathComponent toFolder:FileManager.contentFolder withName:downloadTask.originalRequest.URL.lastPathComponent]) {
-        [ThreadUtils performOnMain:^{
+        [GCDUtils performOnMain:^{
             self.downloadingFinishedBlock(downloadTask.originalRequest.URL.lastPathComponent);
         }];
     }

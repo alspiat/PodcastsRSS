@@ -36,9 +36,6 @@
     ItemMO *itemMO = [[ItemMO alloc] initWithItem:item context:self.appDelegate.context];
     [self.appDelegate.context insertObject:itemMO];
     
-    NSLog(@"LOCAL LINK WHEN SAVE: %@", item.mediaContent.localLink);
-    NSLog(@"LOCAL LINK WHEN SAVE MO: %@", itemMO.mediaContent.localLink);
-    
     [self.appDelegate saveContext];
 }
 

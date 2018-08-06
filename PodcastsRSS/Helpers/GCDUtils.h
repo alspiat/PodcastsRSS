@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ThreadUtils : NSObject
+@interface GCDUtils : NSObject
 
 + (void)performOnMain:(dispatch_block_t)block;
 + (void)performInBackground:(dispatch_block_t)block;

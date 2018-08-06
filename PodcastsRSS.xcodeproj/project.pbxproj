@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A40351B21183B420019148E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A40351A21183B420019148E /* SettingsViewController.m */; };
 		9A45F7E5210861F4007F2F9E /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A45F7E4210861F4007F2F9E /* Content.m */; };
 		9A45F7E9210872B5007F2F9E /* ItemsViewController+CollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A45F7E8210872B5007F2F9E /* ItemsViewController+CollectionView.m */; };
 		9A45F7F021089B0F007F2F9E /* AudioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A45F7EF21089B0F007F2F9E /* AudioCollectionViewCell.m */; };
@@ -30,7 +31,7 @@
 		9A87F9DE210B5968001C0B1B /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87F9DD210B5968001C0B1B /* DataManager.m */; };
 		9A87F9E1210B7B92001C0B1B /* ControllersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87F9E0210B7B92001C0B1B /* ControllersManager.m */; };
 		9AD2BE4D211321600090524F /* Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2BE4C211321600090524F /* Downloader.m */; };
-		9AD2BE5021132E810090524F /* ThreadUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2BE4F21132E810090524F /* ThreadUtils.m */; };
+		9AD2BE5021132E810090524F /* GCDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2BE4F21132E810090524F /* GCDUtils.m */; };
 		AA4AE4F22117A2D8000D933D /* DataManager+Fetching.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4AE4F12117A2D8000D933D /* DataManager+Fetching.m */; };
 		AA4AE4F52117A3EB000D933D /* DataManager+Content.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4AE4F42117A3EB000D933D /* DataManager+Content.m */; };
 		AA4F46C7210DE267007144D0 /* VideoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4F46C6210DE267007144D0 /* VideoContentView.m */; };
@@ -43,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A40351921183B420019148E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		9A40351A21183B420019148E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		9A45F7E3210861F4007F2F9E /* Content.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
 		9A45F7E4210861F4007F2F9E /* Content.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Content.m; sourceTree = "<group>"; };
 		9A45F7E6210862B2007F2F9E /* ItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemType.h; sourceTree = "<group>"; };
@@ -90,8 +93,8 @@
 		9AD2BE46211311C00090524F /* CellConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellConstants.h; sourceTree = "<group>"; };
 		9AD2BE4B211321600090524F /* Downloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
 		9AD2BE4C211321600090524F /* Downloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Downloader.m; sourceTree = "<group>"; };
-		9AD2BE4E21132E810090524F /* ThreadUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadUtils.h; sourceTree = "<group>"; };
-		9AD2BE4F21132E810090524F /* ThreadUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThreadUtils.m; sourceTree = "<group>"; };
+		9AD2BE4E21132E810090524F /* GCDUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDUtils.h; sourceTree = "<group>"; };
+		9AD2BE4F21132E810090524F /* GCDUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDUtils.m; sourceTree = "<group>"; };
 		AA4AE4F02117A2D8000D933D /* DataManager+Fetching.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DataManager+Fetching.h"; sourceTree = "<group>"; };
 		AA4AE4F12117A2D8000D933D /* DataManager+Fetching.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DataManager+Fetching.m"; sourceTree = "<group>"; };
 		AA4AE4F32117A3EB000D933D /* DataManager+Content.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DataManager+Content.h"; sourceTree = "<group>"; };
@@ -126,6 +129,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A40351821183B210019148E /* Settings Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9A40351921183B420019148E /* SettingsViewController.h */,
+				9A40351A21183B420019148E /* SettingsViewController.m */,
+			);
+			path = "Settings Controller";
+			sourceTree = "<group>";
+		};
 		9A45F7ED210875B6007F2F9E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,8 +245,8 @@
 			children = (
 				9AD2BE4B211321600090524F /* Downloader.h */,
 				9AD2BE4C211321600090524F /* Downloader.m */,
-				9AD2BE4E21132E810090524F /* ThreadUtils.h */,
-				9AD2BE4F21132E810090524F /* ThreadUtils.m */,
+				9AD2BE4E21132E810090524F /* GCDUtils.h */,
+				9AD2BE4F21132E810090524F /* GCDUtils.m */,
 				9A87F9D3210B5382001C0B1B /* UIImage+Compression.h */,
 				9A87F9D4210B5382001C0B1B /* UIImage+Compression.m */,
 				9A6268EA21108842004BECFD /* NSDate+FormatString.h */,
@@ -276,6 +288,7 @@
 		AA4AE4EF21179F52000D933D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9A40351821183B210019148E /* Settings Controller */,
 				9A5D05B621078D7C0027B5B6 /* Items Controller */,
 				9A5D05B721078D880027B5B6 /* Details Controller */,
 			);
@@ -437,8 +450,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA4F46CD210DE611007144D0 /* ContentView.m in Sources */,
-				9AD2BE5021132E810090524F /* ThreadUtils.m in Sources */,
+				9AD2BE5021132E810090524F /* GCDUtils.m in Sources */,
 				9A5D05A2210733B10027B5B6 /* RssService.m in Sources */,
+				9A40351B21183B420019148E /* SettingsViewController.m in Sources */,
 				9A5D05AC210785A40027B5B6 /* DetailsViewController.m in Sources */,
 				9A87F9D5210B5382001C0B1B /* UIImage+Compression.m in Sources */,
 				AA4F46C7210DE267007144D0 /* VideoContentView.m in Sources */,

@@ -20,6 +20,7 @@
 @interface DetailsViewController ()
 
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UILabel *placeholderLabel;
 @property (strong, nonatomic) UILabel *detailsLabel;
 @property (strong, nonatomic) ContentView *contentView;
 @property (strong, nonatomic) AVPlayerViewController *playerController;
@@ -50,6 +51,17 @@
                                               [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
                                               ]];
     
+    self.placeholderLabel = [[UILabel alloc] init];
+    self.placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.placeholderLabel setText:detailsPlaceholderText];
+    
+    [self.scrollView addSubview:self.placeholderLabel];
+    
+    [NSLayoutConstraint activateConstraints:@[
+                                              [self.placeholderLabel.centerXAnchor constraintEqualToAnchor:self.scrollView.centerXAnchor],
+                                              [self.placeholderLabel.centerYAnchor constraintEqualToAnchor:self.scrollView.centerYAnchor]
+                                              ]];
+    
     [self configureView];
 }
 
@@ -73,6 +85,7 @@
     
     if (self.detailItem) {
         
+        [self.placeholderLabel setHidden:YES];
         [self.playerController removeFromParentViewController];
         [self setupContentView];
         [self.detailsLabel sizeToFit];
@@ -141,6 +154,7 @@
 - (void)activityButtonTapped:(id)sender {
     if (self.detailItem.isSaved) {
         [DataManager removeItemFromOffline:self.detailItem];
+        [self.contentView.activityButton setImage:[UIImage imageNamed:downloadButtonImageName] forState:UIControlStateNormal];
     } else {
         
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -153,12 +167,12 @@
             [activityIndicator stopAnimating];
             [self.contentView.activityButton setHidden:NO];
             [self.contentView.progressView setHidden:YES];
+            [self.contentView.activityButton setImage:[UIImage imageNamed:deleteButtonImageName] forState:UIControlStateNormal];
         }];
         
         [activityIndicator startAnimating];
         [self.contentView.activityButton setHidden:YES];
     }
-    [self configureActivityButton];
 }
 
 - (void)configureActivityButton {

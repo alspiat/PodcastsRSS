@@ -6,10 +6,10 @@
 //  Copyright © 2018 Aliaksei Piatyha. All rights reserved.
 //
 
-#import "ThreadUtils.h"
+#import "GCDUtils.h"
 
 
-@implementation ThreadUtils
+@implementation GCDUtils
 
 + (void)performOnMain:(dispatch_block_t)block {
     dispatch_async(dispatch_get_main_queue(), block);

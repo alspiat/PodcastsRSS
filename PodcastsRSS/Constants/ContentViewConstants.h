@@ -16,6 +16,7 @@ static NSString * const playButtonImageName = @"play_button";
 static NSString * const audioPlaceholder = @"audio_placeholder";
 static NSString * const videoPlaceholder = @"video_placeholder";
 
+static NSString * const detailsPlaceholderText = @"Please, select any item for details";
 
 static const CGFloat contentViewCornerRadius = 5.0;
 static const CGFloat contentViewRowSpacing = 10.0;
