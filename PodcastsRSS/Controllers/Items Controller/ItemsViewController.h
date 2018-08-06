@@ -13,7 +13,6 @@
 @interface ItemsViewController : UIViewController
 
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (strong, nonatomic) UISwitch *offlineModeSwitch;
 
 - (NSMutableArray<Item *> *)itemsDatasource;
 

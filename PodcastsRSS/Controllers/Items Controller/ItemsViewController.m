@@ -9,17 +9,20 @@
 #import "ItemsViewController.h"
 #import "ItemsViewController+CollectionView.h"
 #import "Item.h"
+#import "ControllersManager.h"
 
 #import "VideoCollectionViewCell.h"
 #import "AudioCollectionViewCell.h"
 #import "FirstCollectionViewCell.h"
 
 #import "DataManager+Fetching.h"
+#import "Constants.h"
 
 @interface ItemsViewController ()
 
 @property (strong, nonatomic) NSMutableArray<Item *> *onlineDatasource;
 @property (strong, nonatomic) NSMutableArray<Item *> *offlineDatasource;
+@property (assign, nonatomic) BOOL currentOfflineMode;
 
 @end
 
@@ -29,12 +32,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.navigationItem.title = @"Podcasts";
-
-    self.offlineModeSwitch = [[UISwitch alloc] init];
-    [self.offlineModeSwitch addTarget:self action:@selector(offlineModeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: self.offlineModeSwitch];
-
+    self.navigationItem.title = itemsListTitle;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:settingsButtonImageName] style:UIBarButtonItemStyleDone target:self action:@selector(settingsButtonTapped:)];
+    self.navigationController.navigationBar.tintColor = UIColor.blackColor;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
 
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -61,8 +62,12 @@
     [self updateContent];
 }
 
+- (void)settingsButtonTapped:(id)sender {
+    [ControllersManager showSettingsViewController];
+}
+
 - (NSMutableArray<Item *> *)itemsDatasource {
-    if (self.offlineModeSwitch.isOn) {
+    if (self.currentOfflineMode) {
         return self.offlineDatasource;
     } else {
         return self.onlineDatasource;
@@ -74,7 +79,7 @@
 }
 
 - (void)updateContent {
-    if (self.offlineModeSwitch.isOn) {
+    if (self.currentOfflineMode) {
         [self.offlineDatasource removeAllObjects];
         
         [DataManager fetchOfflineDataWithCompletionHandler:^(NSArray<Item *> *items) {
@@ -90,6 +95,14 @@
             self.onlineDatasource = [[self sortItems:self.onlineDatasource] mutableCopy];
             [self.collectionView reloadData];
         }];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    BOOL offlineMode = [[NSUserDefaults standardUserDefaults] boolForKey:userDefaultsOfflineModeKey];
+    if (offlineMode != self.currentOfflineMode) {
+        self.currentOfflineMode = offlineMode;
+        [self updateContent];
     }
 }
 

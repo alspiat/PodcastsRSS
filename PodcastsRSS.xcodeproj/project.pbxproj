@@ -288,9 +288,9 @@
 		AA4AE4EF21179F52000D933D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9A40351821183B210019148E /* Settings Controller */,
 				9A5D05B621078D7C0027B5B6 /* Items Controller */,
 				9A5D05B721078D880027B5B6 /* Details Controller */,
+				9A40351821183B210019148E /* Settings Controller */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

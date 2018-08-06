@@ -9,6 +9,7 @@
 #import "ControllersManager.h"
 #import "ItemsViewController.h"
 #import "DetailsViewController.h"
+#import "SettingsViewController.h"
 
 static ControllersManager *_sharedManager = nil;
 
@@ -55,6 +56,12 @@ static ControllersManager *_sharedManager = nil;
     DetailsViewController *detailsViewController = _sharedManager.detailsNavigationController.viewControllers.firstObject;
     [detailsViewController setDetailItem:item];
     [_sharedManager.splitViewController showDetailViewController:_sharedManager.detailsNavigationController sender:nil];
+}
+
++ (void)showSettingsViewController {
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    [_sharedManager.splitViewController presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
 // MARK: - UISplitViewController delegate methods

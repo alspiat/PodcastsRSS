@@ -17,5 +17,6 @@
 
 + (ControllersManager *) sharedManager;
 + (void) showDetailsViewControllerWithItem: (Item *) item;
++ (void) showSettingsViewController;
 
 @end
