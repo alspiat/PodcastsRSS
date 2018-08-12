@@ -99,6 +99,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     BOOL offlineMode = [[NSUserDefaults standardUserDefaults] boolForKey:userDefaultsOfflineModeKey];
     if (offlineMode != self.currentOfflineMode) {
         self.currentOfflineMode = offlineMode;
